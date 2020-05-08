@@ -37,8 +37,8 @@
                 <div class="ml-3" v-text="day.weather[0].description"></div>
               </div>
               <div class="w-1/6 text-right">
-                <div v-text="day.main.temp_max"></div>
-                <div v-text="day.main.temp_min"></div>
+                <div v-text="Math.round(day.main.temp_max)"></div>
+                <div v-text="Math.round(day.main.temp_min)"></div>
               </div>
             </div>
           </div>
@@ -112,11 +112,10 @@ export default {
       fetch(`/api/weather?lat=${this.location.lat}&lon=${this.location.lon}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data)
-          this.currentTemperature.actual = data.main.temp;
-          this.currentTemperature.feels = data.main.feels_like;
-          this.currentTemperature.summary = data.weather[0].main;
-          this.currentTemperature.icon = data.weather[0].icon;
+          this.currentTemperature.actual = Math.round(data.main.temp);
+          this.currentTemperature.feels = Math.round(data.main.feels_like);
+          this.currentTemperature.summary = Math.round(data.weather[0].main);
+          this.currentTemperature.icon = Math.round(data.weather[0].icon);
         })
     },
     fetchForecastTemperature(){
